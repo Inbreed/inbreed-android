@@ -1,5 +1,5 @@
 {
-    "version": 3,
+    "version": 4,
     "header": "https://raw.githubusercontent.com/Inbreed/inbreed.github.io/master/img/logo.png",
     "pages":
     [
@@ -33,6 +33,12 @@
             "name": "Third",
             "img": "img/logo_flow_tmp.png",
             "desc": "Description the third",
+            "time": "TBA"
+        },
+        {
+            "name": "Four",
+            "img": "img/logo_flow_tmp.png",
+            "desc": "Description the fourth",
             "time": "TBA"
         }
     ]

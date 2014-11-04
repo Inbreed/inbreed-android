@@ -6,6 +6,8 @@ function LoadInbreed($http) {
     this.getContent = function ($scope) {
         $http.get('test.json').success(function (result) {
             $scope.versionCheck(result);
+        }).error(function (result) {
+            $scope.loadLocal();
         });
     };
 }
@@ -26,37 +28,33 @@ App.controller('InbreedCtrl', function ($scope, $ionicSideMenuDelegate, $ionicMo
             $scope.mainLogo = result.header;
             window.localStorage.setItem('InbreedData', JSON.stringify(result));
         } else {
-            $scope.storedData = JSON.parse(window.localStorage.getItem('InbreedData'));
-            $scope.slides   = $scope.storedData.pages;
-            $scope.bandinfo = $scope.storedData.bands;
-            $scope.mainLogo = $scope.storedData.header;
+            $scope.loadLocal();
         }
     };
+    
+    $scope.loadLocal = function () {
+        $scope.storedData = JSON.parse(window.localStorage.getItem('InbreedData'));
+        $scope.slides   = $scope.storedData.pages;
+        $scope.bandinfo = $scope.storedData.bands;
+        $scope.mainLogo = $scope.storedData.header;
+    }
 
-    $scope.sideDrag = true;
     $scope.setSelectedBand = function (index) {
         $scope.selectedBand = index;
+    };
+    
+    $scope.currentSlide = 0;
+    
+    $scope.isActive = function (item) {
+        return $scope.currentSlide == item;
     };
     
     $scope.refresh  = LoadInbreed.getContent($scope);
 
     $scope.setActiveSlide = function (index) {
         $ionicSlideBoxDelegate.slide(index);
-        checkSide();
-        $ionicSideMenuDelegate.toggleLeft(false);
+        $scope.currentSlide = index;
     };
-
-    $scope.toggleSideMenu = function () {
-        $ionicSideMenuDelegate.toggleLeft();
-    };
-    
-    function checkSide() {
-        if ($ionicSlideBoxDelegate.currentIndex() === 0) {
-            $scope.sideDrag = true;
-        } else {
-            $scope.sideDrag = false;
-        }
-    }
     
     $ionicModal.fromTemplateUrl('band_closeup.html', function (modal) {
         $scope.taskModal = modal;

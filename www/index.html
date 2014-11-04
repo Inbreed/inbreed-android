@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Inbreed</title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+</head>
+<body ng-app="Inbreed" ng-controller="InbreedCtrl">
+   <ion-side-menus>
+        <ion-side-menu-content drag-content="sideDrag">
+            <ion-header-bar class="bar-dark">
+                <button class="button button-icon" ng-click="toggleSideMenu()">
+                    <i class="ion-navicon"></i>
+                </button>
+                <img src="{{ mainLogo }}"></img>
+            </ion-header-bar>
+            <ion-content>
+                <ion-slide-box show-pager="false" on-slide-changed="setActiveSlide($index)">
+                    <ion-slide class="box">
+                        {{ slides[0].text }}
+                    </ion-slide>
+                    <ion-slide class="box">
+                       <ion-list>
+                           <ion-item ng-repeat="band in bandinfo" ng-click="openModal(); setSelectedBand($index)">
+                              <img src="{{band.img}}">
+                              <h2>{{band.name}}</h2>
+                              <p>Playing: {{band.time}}</p>
+                            </a>
+                           </ion-item>
+                       </ion-list>
+                    </ion-slide>
+                    <ion-slide class="box">
+                        <p>Slide 3</p>
+                    </ion-slide>
+                    <ion-slide class="box">
+                        <p>Slide 4</p>
+                    </ion-slide>
+                    <ion-slide class="box">
+                        <p ng-click="openMapModal()">le Map!</p>
+                    </ion-slide>
+                </ion-slide-box>
+            </ion-content>
+            
+            <script id="band_closeup.html" type="text/ng-template">
+                <div class="modal">
+                    <ion-header-bar class="bar-secondary">
+                        <h1 class="title">{{ bandinfo[selectedBand].name }}</h1>
+                        <button class="button button-positive" ng-click="closeModal()">Close</button>
+                    </ion-header-bar>
+                    <ion-item>
+                        <img src="{{ bandinfo[selectedBand].img }}">
+                        <p>{{ bandinfo[selectedBand].desc }}</p>
+                    </ion-item>
+                </div>
+            </script>
+            <script id="map.html" type="text/ng-template">
+                <div class="modal">
+                    <ion-header-bar class="bar-secondary">
+                        <h1 class="title">Map</h1>
+                        <button class="button button-positive" ng-click="closeMapModal()">Close</button>
+                    </ion-header-bar>
+                    <ion-item>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2004.5362196936821!2d17.64039008598327!3d59.84023456464092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465fcbe0a69809e3%3A0x22a8007982c6660d!2sUppsala+Grindstugan!5e0!3m2!1sen!2sse!4v1415093996907" width="600" height="450" frameborder="0" style="border:0"></iframe>
+                    </ion-item>
+                </div>
+            </script>
+        </ion-side-menu-content>
+        
+        <ion-side-menu slide="left">
+            <ion-header-bar class="bar-dark">
+                <h1 class="title">Menu</h1>
+            </ion-header-bar>
+            <ion-content scroll="false">
+                <ion-list>
+                    <ion-item ng-repeat="slide in slides" ng-click="setActiveSlide($index)">
+                        {{ slide.title }}
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-side-menu>
+    </ion-side-menus>
+</body>
+</html>

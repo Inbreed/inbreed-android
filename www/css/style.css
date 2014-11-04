@@ -1,0 +1,6 @@
+/* Empty. Add your own CSS if you like */
+.img {
+    max-width: device-width !important;
+    max-height: 100% !important;
+    padding: 0 0 !important;
+}

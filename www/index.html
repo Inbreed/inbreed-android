@@ -67,10 +67,12 @@
                 <h1 class="title">{{ bandinfo[selectedBand].name }}</h1>
                 <button class="button button-positive" ng-click="closeModal()">Close</button>
             </ion-header-bar>
-            <ion-item>
+            <ion-content>
+            <div>
                 <img src="{{ bandinfo[selectedBand].img }}">
                 <p>{{ bandinfo[selectedBand].desc }}</p>
-            </ion-item>
+            </div>
+            </ion-content>
         </div>
     </script>
     <script id="map.html" type="text/ng-template">
